@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const db = require("../config/db");
+const PORT = process.env.PORT || 8000;
 
 //signup
 exports.signup = (req, res) => {
@@ -41,7 +42,6 @@ exports.login = (req, res) => {
   });
 };
 
-
 exports.forgotPassword = (req, res) => {
   const { email } = req.body;
 
@@ -72,7 +72,7 @@ exports.forgotPassword = (req, res) => {
         },
       });
 
-      const resetURL = `http://localhost:5000/api/auth/reset-password/${resetToken}`;
+      const resetURL = `http://localhost:${PORT}/api/auth/reset-password/${resetToken}`;
       await transporter.sendMail({
         to: user.email,
         subject: "Password Reset",
@@ -83,7 +83,6 @@ exports.forgotPassword = (req, res) => {
     }
   );
 };
-
 
 exports.resetPassword = (req, res) => {
   const { token } = req.params;
@@ -115,7 +114,6 @@ exports.resetPassword = (req, res) => {
     return res.status(400).json({ error: "Invalid or expired token" });
   }
 };
-
 
 exports.getUser = (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
