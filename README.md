@@ -1,13 +1,19 @@
 this is Authentication api with api end points as 
+
 // sighnup
+
 post http://localhost:8000/api/auth/signup 
+
 // login
+
 post http://localhost:8000/api/auth/login
 
 //forgot password
+
 post http://localhost:8000/api/auth/forgot-password
 
 //reset password
+
 post http://localhost:8000/api/auth/reset-passsword/:token
 
 
